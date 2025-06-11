@@ -1,0 +1,17 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "This my frist app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "author": "Shubham Patil",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
+}

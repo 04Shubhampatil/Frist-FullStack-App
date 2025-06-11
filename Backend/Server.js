@@ -1,0 +1,122 @@
+import express from "express";
+import cors from "cors"
+import dotenv from "dotenv";
+
+const app = express();
+
+
+
+app.use(cors())
+app.get("/api/jokes", (req, res) => {
+ const jokes = [
+    // Original 10 jokes (updated with id, title, content)
+    { id: 1, title: "Science Humor", content: "Why don't scientists trust atoms? Because they make up everything!" },
+    { id: 2, title: "Math Book Blues", content: "Why did the math book look sad? Because it had too many problems." },
+    { id: 3, title: "Scarecrow's Achievement", content: "Why did the scarecrow win an award? Because he was outstanding in his field." },
+    { id: 4, title: "Programmer's Nature", content: "Why don't programmers like nature? It has too many bugs." },
+    { id: 5, title: "Cow's Feet", content: "Why do cows have hooves instead of feet? Because they lactose." },
+    { id: 6, title: "Bicycle Trouble", content: "Why did the bicycle fall over? Because it was two-tired." },
+    { id: 7, title: "Golfer's Preparation", content: "Why did the golfer bring two pairs of pants? In case he got a hole in one." },
+    { id: 8, title: "Computer's Checkup", content: "Why did the computer go to the doctor? Because it had a virus." },
+    { id: 9, title: "Long Math Lecture", content: "Why was the math lecture so long? The professor kept going off on a tangent." },
+    { id: 10, title: "Tomato's Blush", content: "Why did the tomato turn red? Because it saw the salad dressing!" },
+
+    // 90 New Jokes
+    { id: 11, title: "Parallel Lines", content: "Why are parallel lines so tragic? Because they’ll never meet." },
+    { id: 12, title: "Skeleton Party", content: "Why didn’t the skeleton go to the party? Because he had no body to go with." },
+    { id: 13, title: "Pirate's Favorite Letter", content: "What’s a pirate’s favorite letter? You’d think it’s R, but it’s really the C." },
+    { id: 14, title: "Invisible Man", content: "Why did the invisible man turn down the job offer? He couldn’t see himself doing it." },
+    { id: 15, title: "Lightbulb Change", content: "How many programmers does it take to change a lightbulb? None, that’s a hardware problem." },
+    { id: 16, title: "Chicken Crossing", content: "Why did the chicken cross the playground? To get to the other slide." },
+    { id: 17, title: "Zero Confidence", content: "Why was zero jealous of eight? Because eight was two-timing zero." },
+    { id: 18, title: "Dad’s Pun", content: "I told my dad I wanted to be a comedian. He laughed." },
+    { id: 19, title: "Coffee Break", content: "Why did the coffee file a police report? It got mugged." },
+    { id: 20, title: "Tree’s Favorite Drink", content: "What’s a tree’s favorite drink? Root beer." },
+    { id: 21, title: "Bread’s Complaint", content: "Why did the bread go to the doctor? It was feeling crumby." },
+    { id: 22, title: "Ghost’s Lie", content: "Why don’t ghosts lie? Because you can see right through them." },
+    { id: 23, title: "Cheese Standoff", content: "What do you call cheese that isn’t yours? Nacho cheese!" },
+    { id: 24, title: "Time Traveler’s Mistake", content: "Why did the time traveler bring a pencil? To draw his own conclusions." },
+    { id: 25, title: "Fish’s Name", content: "What do you call a fish with no eyes? Fsh." },
+    { id: 26, title: "Horse’s Favorite Song", content: "What’s a horse’s favorite song? ‘Hay’ by the Beatles." },
+    { id: 27, title: "Dinosaur’s Nickname", content: "What do you call a dinosaur with an extensive vocabulary? A thesaurus." },
+    { id: 28, title: "Egg’s Joke", content: "Why did the egg hide? It was a little chicken." },
+    { id: 29, title: "Banana’s Phone", content: "Why did the banana go to the doctor? It wasn’t peeling well." },
+    { id: 30, title: "Math’s Fear", content: "Why was the equal sign so humble? It knew it wasn’t less than or greater than anyone else." },
+    { id: 31, title: "Robot’s Diet", content: "Why did the robot go on a diet? It had too many bytes." },
+    { id: 32, title: "Window’s Pun", content: "What did the window say to the wall? ‘I see through you.’" },
+    { id: 33, title: "Pencil’s Joke", content: "Why was the pencil upset? It was feeling pointless." },
+    { id: 34, title: "Sheep’s Disguise", content: "What do you call a sheep with no legs? A cloud." },
+    { id: 35, title: "Mummy’s Party", content: "Why did the mummy break up with his girlfriend? She was too wrapped up in herself." },
+    { id: 36, title: "Snowman’s Breakfast", content: "What does a snowman eat for breakfast? Frosted flakes." },
+    { id: 37, title: "Dog’s Email", content: "Why did the dog sit in the shade? Because it didn’t want to be a hot dog." },
+    { id: 38, title: "Knock-Knock (Interrupting Cow)", content: "Knock knock. Who’s there? Interrupting cow. Interrupting co— MOO!" },
+    { id: 39, title: "Lazy Kangaroo", content: "Why are kangaroos bad at hide and seek? Because they always jump out." },
+    { id: 40, title: "Candle’s Complaint", content: "Why did the candle go to therapy? It was burned out." },
+    { id: 41, title: "Giraffe’s Humor", content: "What’s the difference between a giraffe and a mailbox? I don’t know, I’ve never gotten a letter from a giraffe." },
+    { id: 42, title: "Pasta’s Secret", content: "What did the pasta say to the sauce? ‘You’re saucy!’" },
+    { id: 43, title: "Owl’s Party", content: "What do you call an owl magician? Hoo-dini." },
+    { id: 44, title: "Duck’s Advice", content: "What did the duck say when it bought lipstick? ‘Put it on my bill.’" },
+    { id: 45, title: "Lettuce’s Pun", content: "Why did the lettuce win the race? Because it was ahead by a head." },
+    { id: 46, title: "Battery’s Joke", content: "Why did the battery break up with the outlet? It needed space." },
+    { id: 47, title: "Piano’s Pun", content: "Why was the piano so easy to lift? Because it was full of soft notes." },
+    { id: 48, title: "Elephant’s Disguise", content: "How do you know if an elephant is in your fridge? The door won’t close." },
+    { id: 49, title: "Book’s Pun", content: "Why did the book go to the doctor? It had a bad spine." },
+    { id: 50, title: "Clock’s Laziness", content: "Why did the clock go to therapy? It had too many ticks." },
+    { id: 51, title: "Lobster’s Party", content: "Why did the lobster blush? Because the seaweed." },
+    { id: 52, title: "Broom’s Pun", content: "Why did the broom get a promotion? It swept the competition." },
+    { id: 53, title: "Moon’s Humor", content: "Why did the moon break up with the sun? It needed space." },
+    { id: 54, title: "Pizza’s Pun", content: "What did the pizza say to the topping? ‘You complete me.’" },
+    { id: 55, title: "Shoe’s Pun", content: "Why did the shoe go to school? To get a little more ‘sole’ education." },
+    { id: 56, title: "Bee’s Pun", content: "What did the bee say to the flower? ‘Hi, honey!’" },
+    { id: 57, title: "Cloud’s Pun", content: "Why did the cloud break up with the sky? It needed to rain alone." },
+    { id: 58, title: "Pen’s Pun", content: "Why did the pen refuse to write? It was out of its depth." },
+    { id: 59, title: "Rock’s Pun", content: "Why did the rock go to college? To get a little boulder." },
+    { id: 60, title: "Ladder’s Pun", content: "Why did the ladder break up with the wall? It needed to climb higher." },
+    { id: 61, title: "Hippo’s Pun", content: "Why don’t hippos ever get hungry? Because they’re always ‘stuffed’." },
+    { id: 62, title: "Ketchup’s Pun", content: "Why did the ketchup turn red? Because it saw the mustard." },
+    { id: 63, title: "Pillow’s Pun", content: "Why did the pillow go to therapy? It had too many issues." },
+    { id: 64, title: "Guitar’s Pun", content: "Why did the guitar go to the doctor? It had too many frets." },
+    { id: 65, title: "Pineapple’s Pun", content: "Why did the pineapple refuse to share? Because it was a little prickly." },
+    { id: 66, title: "Magnet’s Pun", content: "Why did the magnet break up with the fridge? It felt too attached." },
+    { id: 67, title: "Toaster’s Pun", content: "Why did the toaster go to therapy? It had too many pop-ups." },
+    { id: 68, title: "Cactus’ Pun", content: "Why did the cactus cross the road? To get to the other ‘side’." },
+    { id: 69, title: "Lemon’s Pun", content: "Why did the lemon stop in the middle of the road? It ran out of juice." },
+    { id: 70, title: "Zombie’s Pun", content: "Why did the zombie go to art school? To improve his ‘dead’lines." },
+    { id: 71, title: "Vampire’s Pun", content: "Why did the vampire go to the dentist? To improve his bite." },
+    { id: 72, title: "Werewolf’s Pun", content: "Why did the werewolf get a job? To make ends ‘meat’." },
+    { id: 73, title: "Unicorn’s Pun", content: "Why did the unicorn get a job? To make ends ‘neigh’." },
+    { id: 74, title: "Dragon’s Pun", content: "Why did the dragon break up with his girlfriend? She was too hot to handle." },
+    { id: 75, title: "Wizard’s Pun", content: "Why did the wizard break up with his girlfriend? She was too ‘spell’-binding." },
+    { id: 76, title: "Alien’s Pun", content: "Why did the alien go to the doctor? It had a little ‘space’ sickness." },
+    { id: 77, title: "Ninja’s Pun", content: "Why did the ninja refuse to fight? He was a little ‘shadow’ of his former self." },
+    { id: 78, title: "Pirate’s Pun", content: "Why did the pirate go to the doctor? He had a bad ‘arrr’-thritis." },
+    { id: 79, title: "Cowboy’s Pun", content: "Why did the cowboy get a dog? To keep his ‘herd’ in check." },
+    { id: 80, title: "Astronaut’s Pun", content: "Why did the astronaut break up with his girlfriend? He needed space." },
+    { id: 81, title: "Detective’s Pun", content: "Why did the detective go to the doctor? He had a ‘case’ of the flu." },
+    { id: 82, title: "Baker’s Pun", content: "Why did the baker go to the doctor? He was feeling a little ‘dough’-zy." },
+    { id: 83, title: "Farmer’s Pun", content: "Why did the farmer win an award? Because he was outstanding in his field." },
+    { id: 84, title: "Fisherman’s Pun", content: "Why did the fisherman break up with his girlfriend? She was too ‘reel’." },
+    { id: 85, title: "Postman’s Pun", content: "Why did the postman go to the doctor? He had too many ‘delivery’ issues." },
+    { id: 86, title: "Teacher’s Pun", content: "Why did the teacher go to the beach? To test the waters." },
+    { id: 87, title: "Doctor’s Pun", content: "Why did the doctor break up with his girlfriend? She was too ‘ill’-tempered." },
+    { id: 88, title: "Lawyer’s Pun", content: "Why did the lawyer go to the doctor? He had too many ‘cases’." },
+    { id: 89, title: "Pilot’s Pun", content: "Why did the pilot break up with his girlfriend? He needed to ‘fly’ solo." },
+    { id: 90, title: "Singer’s Pun", content: "Why did the singer go to the doctor? He had a ‘sore’ throat." },
+    { id: 91, title: "Dancer’s Pun", content: "Why did the dancer go to the doctor? He had two left feet." },
+    { id: 92, title: "Artist’s Pun", content: "Why did the artist go to the doctor? He had a ‘sketchy’ past." },
+    { id: 93, title: "Writer’s Pun", content: "Why did the writer go to the doctor? He had too many ‘plots’." },
+    { id: 94, title: "Actor’s Pun", content: "Why did the actor go to the doctor? He had too many ‘dramas’." },
+    { id: 95, title: "Musician’s Pun", content: "Why did the musician go to the doctor? He had too many ‘notes’." },
+    { id: 96, title: "Photographer’s Pun", content: "Why did the photographer go to the doctor? He had too many ‘negatives’." },
+    { id: 97, title: "Chef’s Pun", content: "Why did the chef go to the doctor? He had too many ‘burns’." },
+    { id: 98, title: "Engineer’s Pun", content: "Why did the engineer go to the doctor? He had too many ‘screws’ loose." },
+    { id: 99, title: "Scientist’s Pun", content: "Why did the scientist go to the doctor? He had too many ‘theories’." },
+    { id: 100, title: "Programmer’s Pun", content: "Why did the programmer go to the doctor? He had a ‘bug’." }
+];
+  res.send(jokes);
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`server at http://localhost:${port}`);
+});
